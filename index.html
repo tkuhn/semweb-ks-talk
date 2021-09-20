@@ -1,0 +1,226 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>Knowledge Space</title>
+<link rel="stylesheet" href="dist/reset.css">
+<link rel="stylesheet" href="dist/reveal.css">
+<link rel="stylesheet" href="dist/theme/whitex.css">
+</head>
+
+<body>
+<div class="reveal">
+<div class="slides">
+
+<section>
+<h2><span class="cem">Knowledge Space</span></h2>
+<p>
+<strong>Tobias Kuhn</strong><br>
+VU Amsterdam
+<br>
+<small><a href="http://www.tkuhn.org">http://www.tkuhn.org</a></small>
+</p>
+<p>SemWeb meeting at VU Amsterdam, 20 September 2021</p>
+<small>
+<p><a href="https://gist.github.com/tkuhn/a3842683b810f1e0dbc72a021083ea31">https://gist.github.com/tkuhn/a3842683b810f1e0dbc72a021083ea31</a></p>
+</small>
+</section>
+
+<section>
+<h3><span class="cem">The knowledge space is like ...<span></h3>
+<ul>
+<li>... the <span class="cem">Semantic Web</span>, but robust, scalable, and trust-aware via redundancy and cryptography</li>
+<li>... a <span class="cem">knowledge graph</span>, but open, decentralized, and collaborative</li>
+<li>... a <span class="cem">blockchain</span>, but without a chain and with logic statements instead of transactions</li>
+</ul>
+</section>
+
+<section>
+<h3><span class="cem">Knowledge Space</span></h3>
+<ul>
+<li>The knowledge space is an envisaged open and decentralized global socio-technical ecosystem to share human knowledge</li>
+<li>In the knowledge space, everything is expressed and communicated in formal logic, in a manner that humans can understand and computers can interpret, using a universal and extensible vocabulary</li>
+</ul>
+</section>
+
+<section>
+<h3><span class="cem">Knowledge Records</span></h3>
+<ul>
+<li>Statements in the knowledge space are expressed and communicated in small <em>knowledge records</em>, making each record individually reusable and referenceable</li>
+<li>Apart from its main statements, each knowledge record also includes relevant metadata, including information about who created the knowledge record</li>
+<li>Each knowledge record is immutable and represented by a unique and unforgeable content-based identifier</li>
+</ul>
+</section>
+
+<section>
+<h3><span class="cem2">Knowledge Record Examples</span></h3>
+<pre><code>66C05D:
+  234F0C:
+    general/related-to(disease/Alzheimers, gene/APOE)
+  prov/creator(234F0C, agents/john-doe)
+  general/has-date(66C05D, date/20210618-112311)
+</code></pre>
+<pre><code>E3448C:
+  8BE0E8:
+    collection/has-element(E3448C, 66C05D)
+    collection/has-element(E3448C, 22EF2B)
+    collection/has-element(E3448C, 0B268E)
+  prov/creator(8BE0E8, agents/john-doe)
+</code></pre>
+<pre><code>2DCBA3:
+  E12BBB:
+    general/retracts(agents/john-doe, 66C05D)
+  prov/creator(E12BBB, agents/john-doe)
+</code></pre>
+</section>
+
+<section>
+<h3><span class="cem">Knowledge Agents</span></h3>
+<ul>
+<li>Users of the knowledge space are called <em>knowledge agents</em> and include people as well as automated agents</li>
+</ul>
+</section>
+
+<section>
+<h3><span class="cem">Knowledge Services</span></h3>
+<ul>
+<li>Knowledge agents can interact with the knowledge space via different kinds of online <em>knowledge services</em></li>
+<li>Every knowledge service has several independent sister services with equivalent functionality</li>
+</ul>
+</section>
+
+<section>
+<h3><span class="cem">Knowledge Services</span></h3>
+<ul>
+<li>A <em>lookup service</em> is a kind of knowledge service that returns the full content of a knowledge record for a provided record identifier</li>
+<li><span class="cem2">Example:</span></li>
+</ul>
+<pre><code>  0C9BBD
+&gt;&gt; service/alpha-lookup &gt;&gt;
+  0C9BBD:
+    9977B3:
+      general/related-to(disease/Alzheimers, gene/APOE)
+    prov/creator(9977B3, agents/john-doe)
+    sec/has-sig-for-pubkey(0C9BBD, 574E6A, 075DF5)
+</code></pre>
+</section>
+
+<section>
+<h3><span class="cem">Knowledge Services</span></h3>
+<ul>
+<li>A <em>query service</em> is a kind of knowledge service that returns data, possibly aggregated, from published knowledge records by executing a specified query for the provided parameter values</li>
+<li><span class="cem2">Example:</span></li>
+</ul>
+<pre><code>  general/related-to(disease/Alzheimers, var/x)
+&gt;&gt; service/beta-query &gt;&gt;
+  result/match-in(var/x, gene/APOE, 0C9BBD)
+  result/match-in(var/x, gene/PSEN1, 329E88)
+</code></pre>
+</section>
+
+<section>
+<h3><span class="cem">Knowledge Services</span></h3>
+<ul>
+<li>A <em>publishing service</em> is a kind of knowledge service that allows knowledge agents to permanently publish knowledge records</li>
+<li><span class="cem2">Example:</span></li>
+</ul>
+<pre><code>  0C9BBD:
+    9977B3:
+      general/related-to(disease/Alzheimers, gene/APOE)
+    prov/creator(9977B3, agents/john-doe)
+    sec/has-sig-for-pubkey(0C9BBD, 574E6A, 075DF5)
+&gt;&gt; service/gamma-publish &gt;&gt;
+  status/is-published-at(0C9BBD, service/alpha-lookup)
+  status/is-published-at(0C9BBD, service/yellow-lookup)
+  status/is-published-at(0C9BBD, service/vanilla-lookup)
+</code></pre>
+</section>
+
+<section>
+<h3><span class="cem">Introduction Records</span></h3>
+<ul>
+<li>Relevant entities, including knowledge agents and knowledge services, are introduced to the knowledge space by publishing knowledge records that describe them, which are called <em>introduction records</em></li>
+<li><span class="cem2">Example:</span></li>
+</ul>
+<pre><code>C69CD0:
+  E12BBB:
+    agent/is-person(agents/john-doe)
+    sec/has-pubkey(agents/john-doe, 075DF5)
+  prov/creator(E12BBB, agents/john-doe)
+  general/introduces(C69CD0, agents/john-doe)
+  sec/has-sig-for-pubkey(C69CD0, C4B48A, 075DF5)
+</code></pre>
+</section>
+
+<section>
+<h3><span class="cem">Assessments</span></h3>
+<ul>
+<li>Knowledge agents can provide assessments of entities by expressing a qualified link (e.g. a link representing approval) to an introduction record of the assessed entity, and by publishing this link as a knowledge record</li>
+<li><span class="cem2">Example:</span></li>
+</ul>
+<pre><code>ECA7D7:
+  8DECE4:
+    general/approves-of(agents/john-doe, 95784D)
+  prov/creator(8DECE4, agents/john-doe)
+</code></pre>
+</section>
+
+<section>
+<h3><span class="cem">Knowledge Settings</span></h3>
+<ul>
+<li>A <em>knowledge setting</em>, described in an introduction record, serves as a starting point for establishing trust by providing references to other trusted entities</li>
+<li>A knowledge setting refers to collections of introduction records of trusted knowledge agents and knowledge services, specifies a trust range algorithm, declares an update strategy, and directly includes the minimal information needed to access several lookup services for bootstrapping purposes</li>
+</ul>
+</section>
+
+<section>
+<h3><span class="cem2">Knowledge Setting Example</span></h3>
+<pre><code>A2F7B3:
+  346797:
+    setting/has-trusted-agent-collection(A2F7B3/ks, EC02B0)
+    setting/has-trusted-service-collection(A2F7B3/ks, 24385D)
+    setting/has-trustrange-algorithm(A2F7B3/ks, setting/basic-tr-algorithm)
+    setting/has-update-strategy(A2F7B3/ks, setting/basic-update-strategy)
+    setting/has-bootstrap-lookup-service(A2F7B3/ks, service/alpha-lookup)
+    setting/has-bootstrap-lookup-service(A2F7B3/ks, service/yellow-lookup)
+    setting/has-bootstrap-lookup-service(A2F7B3/ks, service/vanilla-lookup)
+  prov/creator(346797, agents/john-doe)
+  general/introduces(A2F7B3, A2F7B3/ks)
+  sec/has-sig-for-pubkey(A2F7B3, 574E6A, FF1A89)
+</code></pre>
+</section>
+
+<section>
+<h3><span class="cem">Trust Range Algorithm / Update Strategy</span></h3>
+<ul>
+<li>A <em>trust range algorithm</em> specifies which knowledge agents and services, and ultimately which knowledge records, should be considered trustworthy, given a knowledge setting and the published knowledge records</li>
+<li>An <em>update strategy</em> specifies when and how a knowledge setting can be automatically replaced with a newer version</li>
+</ul>
+</section>
+
+<section>
+<h3><span class="cem2">Finding trusted knowledge agents and services 1/2</span></h3>
+<ul>
+<li>In order to connect to the knowledge space, a knowledge agent needs a local copy of a trusted knowledge setting (e.g. by receiving it from a trusted person)</li>
+<li>Via a locally running client software, the knowledge agent can then access the bootstrap lookup services that are listed in the knowledge setting to retrieve the content of the collections of trusted introduction records, thereby obtaining an initial set of trusted knowledge agents and knowledge services</li>
+</ul>
+</section>
+
+<section>
+<h3><span class="cem2">Finding trusted knowledge agents and services 2/2</span></h3>
+<ul>
+<li>The client can then run the trust range algorithm as specified in the knowledge setting, involving calls to the known query and lookup services, to arrive at a larger and more up-to-date set of trusted entities</li>
+<li>Running the trust range algorithm typically involves querying for knowledge agents' assessments of other agents and services, calculating some sort of score based on the nature and extent of assessments each potentially trustworthy agent or service has received, establishing some sort of a score threshold to delineate the trustworthy entities, and resolving any conflicts (e.g. when two different knowledge agents claim the same identifier)</li>
+</ul>
+</section>
+
+<section>
+<h3><span class="cem">Thank you for Your Attention!</span></h3>
+</section>
+
+</div>
+</div>
+
+<script src="dist/reveal.js"></script>
+<script src="init.js"></script>
+</body>
+</html>
